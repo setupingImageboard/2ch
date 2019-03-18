@@ -1,0 +1,235 @@
+#nullBody{                        /* Стиль body */
+  max-width: 100vw;
+  margin:0;
+  background-color: #22262a;
+  color: #cdcdcd;
+}
+
+#nullBody > div:first-child {         /* Стиль header'a */
+  height: 30px;
+  border-bottom: 1px solid #328ae1;
+  width:100vw;
+}
+
+#nullBody > div:nth-child(2) {        /* Стиль блока заголовка */
+  border-bottom: 1px solid #328ae1;
+}
+
+#nullBody > div:nth-child(3) {        /* Блок полосы под формой постинга */
+  border-bottom: solid 1px #328ae1;
+}
+
+#nullText {                        /* Стиль надписи заголовка */
+  color: #118df9;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  font-family: 'Trebuchet MS',sans-serif;
+  font-size: 30px;
+}
+
+#nullText > a, #nullText > a:active, #nullText > a:visited {    /* Убираем эффекты */
+  color: #118df9;                                               /* с заглавной надписи */
+  text-decoration: none;
+}
+
+/***********  Стили формы постинга  ************/
+
+#nullText + button {            /* Стиль кнопки нового треда/поста */
+  text-align: center;
+  font-size: 1.2em;
+  color: #118df9;
+  font-family: 'Trebuchet MS',sans-serif;
+  border: none !important;
+  background-color: #22262a;
+  width: 10em;
+  margin: 10px auto 20px auto;
+  display: block;
+  cursor: pointer;
+}
+
+#postForm {                   /* Стиль формы постинга */
+  margin: 10px auto;
+  width: 480px;
+  max-width: 90vw;
+  padding: 10px;
+  border: solid 1px #328ae1;
+  background-color: #353b41;
+}
+
+#thread > textarea {       /* Стиль текстового поля формы */
+  width: 98%;
+  max-width: 100%;
+  height: 160px;
+  max-height: 23vh;
+  background-color: #d1d1d1;
+  border: solid 1px #3186d8;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+#submissions > input[type]{margin: 2px 0;}
+#submissions + img {
+  height:60px;
+  width:200px;
+  margin:2px;
+  float:right;
+  display:inline-block;
+  border: 1px solid #3186d8
+}
+#captchas {width:120px; margin: 2px 0; padding: 0px;}
+#captchas > input[type='text'] {float:left; width:100%}
+
+#loading {
+  width: 80vw;
+  height: 20vh;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 10vh;
+  color: #118df9;
+  display: none;
+}
+
+@media (max-width:380px){     /* Для мобильных */
+  #submissions + img {
+    height:50px;
+    width:120px;
+    margin:2px;
+    float:right;
+    display:inline-block;
+    border: 1px solid #3186d8
+  }
+}
+
+
+
+/***********   Разметка    **********/
+
+
+sp{                                 /* Тег текста под спойлером */
+  background-color:#8a92a0;
+  color: #8a92a0;
+  font-size: 0.8em;}
+sp:hover{
+  background-color: #353b41;
+  color: #cdcdcd;
+  font-size: 1em;}
+
+quot{
+  color: #42f4c2;
+}
+
+.postRef{color: #fca96f;}
+
+
+/**********   Стили блока треда   *******/
+
+
+#threadBlock {            /* Стиль основного блока треда */
+  margin: 10px auto;
+  width: 1000px;
+  max-width: 95vw;
+  border: solid 1px #328ae1;
+  background-color: #353b41;
+  padding-bottom: 10px;
+}
+
+#threadHead{        /* Стиль шапки треда */
+  width: 97%;
+  border-bottom: 1px #22262a solid;
+  margin: 5px auto;
+  padding-bottom: 4px;
+  color: #cdcdcd;
+}
+
+#threadHead > span > button {   /* Стиль кнопок треда */
+  background-color: #353b41;
+  border: none;
+  color: #cdcdcd;
+  border: 1px solid #328ae1;
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+div.threadBody  {           /* Стиль тела треда */
+  width: 97%;
+  margin-top:10px;
+  margin: 5px auto;
+  color: #cdcdcd;
+  max-height: 200px;
+  overflow: hidden;
+  min-height: 15px;
+}
+
+div.threadBody > button {    /* Скрытая кнопка увеличения миниатюры изображения */
+  border: none;
+  background-color: transparent;
+  float: left;
+  outline: none;    /* Убираем обводку при нажатии */
+  cursor: pointer;  /* Добавляем курсор указывающий что пикча кликабельна */
+  display: inline;
+  max-width: 250px;
+  margin-right: 15px;
+  max-height: 160px;
+}
+
+div.threadBody > button > img {   /* Стили прикрепленного к треду изображения */
+  max-height:158px;
+  max-width: inherit;
+  border: 1px solid #328ae1;
+  display: inline;
+}
+
+#mobileBottom{                    /* Стили footer'a треда для мобильных */
+  width: 97%;
+  border-top: 1px #22262a solid;
+  margin: 0 auto;
+  margin-top: 10px;
+  color: #cdcdcd;
+  padding-top: 3px;
+  max-height: 1em;
+}
+
+#mobileBottom > button {        /* Кнопки footera для мобильных */
+  background-color: #353b41;
+  border: none;
+  color: #cdcdcd;
+  font-size: 0.9em;
+  border: 1px solid #328ae1;
+  margin-right: 10px;
+  float: right;
+  cursor: pointer;
+  display: none;
+}
+
+#mobileBottom > div{          /* Счетчик постов */
+  display: inline-block;
+}
+
+article{                    /* Стиль поля с текстом */
+  white-space: pre-line;
+  word-wrap: break-word;
+  overflow: auto;
+  max-height: 160px;
+}
+
+
+@media (max-width: 600px){    /* для мобильных */
+  #mobileBottom{              /* отображаем footer */
+    max-height: none;
+  }
+
+  #threadHead > span > button{      /* скрываем кнопки header'a */
+    display: none;
+  }
+
+  #mobileBottom > button {  display: inline;  }
+
+  div.threadBody > button { max-width: 130px; }
+}
+
+@media (max-width: 300px){
+  body{font-size:0.8em;}
+  div.threadBody > button { max-width: 100px; }
+}
