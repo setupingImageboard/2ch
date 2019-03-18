@@ -1,0 +1,2 @@
+num INT UNSIGNED| ptime TIMESTAMP| pbody TEXT| ppass INT UNSIGNED| uplfile VARCHAR(60)| postcount TINYINT UNSIGNED  // thread0 таблица базы данных с информацией о тредах
+threadnum INT UNSIGNED| num INT UNSIGNED| ptime TIMESTAMP| pbody TEXT| uplfile VARCHAR(60)  // post0 таблица базы данных с информацией о постах
