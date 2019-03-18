@@ -1,0 +1,40 @@
+<?php 								// Starting session and initialazing captcha script
+session_start();
+$_SESSION = array();
+
+include("../../../server/captcha/simple-php-captcha.php");
+$_SESSION['captcha'] = simple_php_captcha();
+?>
+
+<!DOCTYPE html><html><head>
+
+	<title>/0/ - Нулевая</title>
+	<link rel='icon' href='../../../src/ico.png' type='image/png'>
+	<link rel='stylesheet' href='../../../style/thread0.css'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta charset = "utf-8">
+
+	<script src='../../../js/thread0.js'></script>
+</head>
+
+<body id='nullBody'>
+  <div></div>
+  <div>
+    <div id='nullText'><a href='../../../0/index.php'>/0/ - Нулевая</a></div>
+    <button onclick='postFormWrap()'>Создать пост</button>
+  </div>
+
+ 	<div id='postDiv' style='display: none'>
+		<div id='postForm'>
+
+			<form method='post' action='../../../server/post0.php' enctype='multipart/form-data' id='thread'>
+				<textarea placeholder='А хуле нам, двощерам?' name='threadText'></textarea>
+
+				<button type='button' data-mark='b' onclick='textFormatting(this)'><b>b</b></button>
+				<button type='button' data-mark='i' onclick='textFormatting(this)'><i>i</i></button>
+				<button type='button' data-mark='u' onclick='textFormatting(this)'><ins>u</ins></button>
+				<button type='button' data-mark='del' onclick='textFormatting(this)'><del>del</del></button>
+				<button  type='button' data-mark='sp' onclick='textFormatting(this)'><sp>sp</sp></button>
+
+				<div id='submissions'>
+					<input type='file' name='threadImg' accept='image/jpeg,image/png,image/gif,image/pjpeg,video/mp4,video/webm' id='uplFile'>

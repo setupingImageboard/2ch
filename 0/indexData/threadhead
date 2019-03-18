@@ -1,0 +1,61 @@
+<?php 								// Starting session and initialazing captcha script
+session_start();
+$_SESSION = array();
+
+include("../server/captcha/simple-php-captcha.php");
+$_SESSION['captcha'] = simple_php_captcha();
+?>
+
+<!DOCTYPE html><html><head>
+
+	<title>/0/ - Нулевая</title>
+	<link rel='icon' href='../src/ico.png' type='image/png'>
+	<link rel='stylesheet' href='../style/index0.css'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta charset = "utf-8">
+
+	<script src='../js/index0.js'></script>
+</head>
+
+<body id='nullBody'>
+  <div></div>
+  <div>
+    <div id='nullText'><a href='../0/index0.php'>/0/ - Нулевая</a></div>
+    <button onclick='postFormWrap()'>Создать тред</button>
+  </div>
+
+ 	<div id='postDiv' style='display: none'>
+		<div id='postForm'>
+
+			<form method='post' action='../server/new0.php' enctype='multipart/form-data' id='thread'>
+				<textarea placeholder='А хуле нам, двощерам?' name='threadText'></textarea>
+
+				<button type='button' data-mark='b' onclick='textFormatting(this)'><b>b</b></button>
+				<button type='button' data-mark='i' onclick='textFormatting(this)'><i>i</i></button>
+				<button type='button' data-mark='u' onclick='textFormatting(this)'><ins>u</ins></button>
+				<button type='button' data-mark='del' onclick='textFormatting(this)'><del>del</del></button>
+				<button  type='button' data-mark='sp' onclick='textFormatting(this)'><sp>sp</sp></button>
+
+				<div id='submissions'>
+					<input type='file' name='threadImg' accept='image/jpeg,image/png,image/gif,image/pjpeg,video/mp4,video/webm' id='uplFile'>
+					<input type='text' placeholder='PASSWORD' name='pass' id='pppp' pattern='[0-9]{6-8}'>
+				</div>
+
+				<?php 	// Putting captcha img path into html
+					echo '<img src="'.$_SESSION['captcha']['image_src'].'">';
+				?>
+
+				<div id='captchas'>
+					<input type='text' placeholder='CAPTCHA' name='captcha'>
+					<input type='button' value='Отправить' onclick='checkfilesize(this)'>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+<div></div>
+
+<div id='loading'>
+	Loading
+</div>
