@@ -56,7 +56,13 @@ function checkfilesize(butt){   // Submit function
 
 
 /**********  Функция открытия картинки в полном размере     **********/
+var isOpen = false;  // Variable for checking, if there is any img opened
 function showImage(id, post) {
+      if (isOpen){
+        var opened = document.getElementById('currentImgOpened');
+        opened.parentElement.removeChild(opened);
+      }
+
       var imgDiv = document.createElement('DIV');   // Создаем новые элементы
       var img = document.createElement('IMG');
 
@@ -72,12 +78,13 @@ function showImage(id, post) {
       img.style.display = 'block';
       img.style.border = 'solid 1px #328ae1';
 
-      imgDiv.id = id + 'img';   // Присваиваем блоку ID
+      imgDiv.id = 'currentImgOpened';   // Присваиваем блоку ID
       img.src = './temp/' + id;   // Задаем источник изображения для нового блока
 
 
-      // По первому клику скрываем все это
+      // Deleting imgDiv onclick
       imgDiv.onclick = function(){
-        imgDiv.style.display = 'none';
+        imgDiv.parentElement.removeChild(imgDiv);
+        isOpen = false;
       };
 }

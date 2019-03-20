@@ -63,10 +63,20 @@ function hideThread(id) {
   if (ind > -1){                  // Если есть
     if (cookies[ind+14] == 1){    // Если тред скрыт - показываем
       document.getElementById(id).style.display = 'block';
+      var strId = id.toString();
+      var posts = document.getElementsByName(strId);
+      for(var x=0; x!=posts.length; ++x){
+        posts[x].style.display = 'block';
+      }
       document.cookie = cookieStr + '0';
     }
     else{
       document.getElementById(id).style.display = 'none';
+      var strId = id.toString();
+      var posts = document.getElementsByName(strId);
+      for(var x=0; x!=posts.length; ++x){
+        posts[x].style.display = 'none';
+      }
       document.cookie = cookieStr + '1';
     }
     return;
@@ -74,6 +84,11 @@ function hideThread(id) {
   // Если кнопка нажимается в первый раз - скрываем и записываем куки
   else{
     document.getElementById(id).style.display = 'none';
+    var strId = id.toString();
+    var posts = document.getElementsByName(strId);
+    for(var x=0; x!=posts.length; ++x){
+      posts[x].style.display = 'none';
+    }
     document.cookie = cookieStr + '1';
   }
 }
@@ -107,7 +122,14 @@ function showFullText(id){
 
 
 /**********  Функция открытия картинки в полном размере     **********/
+var isOpen = false;  // Variable for checking, if there is any img opened
 function showImage(id, thread) {
+      if (isOpen){
+        var opened = document.getElementById('currentImgOpened');
+        opened.parentElement.removeChild(opened);
+      }
+
+      isOpen = true;
       var imgDiv = document.createElement('DIV');   // Создаем новые элементы
       var img = document.createElement('IMG');
 
@@ -123,12 +145,13 @@ function showImage(id, thread) {
       img.style.display = 'block';
       img.style.border = 'solid 1px #328ae1';
 
-      imgDiv.id = id + 'img';   // Присваиваем блоку ID
+      imgDiv.id = 'currentImgOpened';   // Присваиваем блоку ID
       img.src = '../0/threads/' + thread + '/temp/' + id;   // Задаем источник изображения для нового блока
 
 
-      // По первому клику скрываем все это
+      // Deleting imgDiv onclick
       imgDiv.onclick = function(){
-        imgDiv.style.display = 'none';
+        imgDiv.parentElement.removeChild(imgDiv);
+        isOpen = false;
       };
 }
