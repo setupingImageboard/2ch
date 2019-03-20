@@ -2,55 +2,61 @@
   include ('functions.php');
   session_start();
 
+/********** checking data for new thread  *************/
   if($_POST['captcha'] != $_SESSION['captcha']['code']){  // Checking captcha
-    header("Location: http://www.2ch.ge/0/");
+    header("Location: http://www.2ch.ge/0/");             // If invalid reloading page
+    exit();                                               // and exiting
+  }
+
+  if(!$_FILES['threadImg']['tmp_name']) {                 // If file is not uploaded
+    header("Location: http://www.2ch.ge/0/");             // Reloading page and exiting
     exit();
   }
+  else {                                                  // Else checking filetype
+    $f_type = f_type();
+    if(!$f_type){                                         // If filetype is invalid
+      header("Location: http://www.2ch.ge/0/");           // Reloading page and exiting
+      exit();
+    }
+  }
 
-  if(!$_FILES['threadImg']['tmp_name']) {                 // Checking if pic is uploaded
-    header("Location: http://www.2ch.ge/0/");
+  if (strlen($_POST['threadText']) < 5){                            // If text of post is too short
+    header("Location: http://www.2ch.ge/0/threads/$threadnum");     // reload page and exit
     exit();
   }
+/***********************************************************/
 
-  $num = mt_rand(1000000, 9999999);     // Получаем случайное семизначное число для номера треда
-  $body = textFormat();                 // получаем обработанный текст
-  $pass = $_POST['pass'];
+/*********  initialising variables *************************/
+  $num = mt_rand(1000000, 9999999);       // Number of thread
+  $body = textFormat();                   // Text of thread
+  $pass = $_POST['pass'];                 // Password of thread
+  # $f_type = type of uploaded pic
+/**********************************************************/
 
-  $connection = mysqli_connect('host', 'name', 'passwd', 'database');   // Подключаемся к базе данных
-  $myQuery = 'SELECT COUNT(*) FROM thread0 ORDER BY TIMESTAMP ASC';
-  $threadCount = mysqli_query($connection, $myQuery);         // Узнаем количество записей
-  $threadCount = mysqli_fetch_row($threadCount);
-
-  if ($threadCount[0] > 49){       // Если лимит записей исчерпан, удаляем одну, самую старую
-    $myQuery = 'SELECT * FROM thread0 ORDER BY ptime ASC LIMIT 1';  // Getting the oldest thread
-    $deleteRow = mysqli_query($connection, $myQuery);
-    $deleteRow = mysqli_fetch_row($deleteRow);
-    $myQuery = 'DELETE FROM thread0 WHERE num='.$deleteRow[0];
-    $deleteRow = mysqli_query($connection, $myQuery);   // Deleting the oldest thread/
-    $myQuery = 'DELETE FROM post0 WHERE threadnum='.$deleteRow[0];
-    $deleteRow = mysqli_query($connection, $myQuery);
-    $myQuery = 'rm -r /var/www/html/0/'.$deleteRow[0];
-    exec($myQuery);
-  }
-
-  $myQuery = 'INSERT INTO thread0 (num, pbody, ppass, postcount) VALUES ('.$num.',\''.$body.'\','.$pass.', 0)';
-  mysqli_query($connection, $myQuery);  // Добавляем запись
-
-
-  $myQuery = '/var/www/html/0/threads/'.$num; // Создаем папку для нового треда
+/*********  creating directories for new thread ***********/
+  $myQuery = '/var/www/html/0/threads/'.$num;   // Creating dir for new thread
   $oldmask = umask(0);
-  mkdir($myQuery,0777);
+  mkdir($myQuery, 0766);
   umask($oldmask);
 
-  mkdir($myQuery.'/temp');          // Создаем папки для временных файлов
-  mkdir($myQuery.'/temp/thumbs');
+  mkdir($myQuery.'/temp', 0766);          // Creating dir for pics
+  mkdir($myQuery.'/temp/thumbs', 0766);   // Creating dir for thumbnails
+/********************************************************/
 
-  $output = imgScale($num);   // Обрабатываем загруженные пикчи
-  $myQuery = 'UPDATE thread0 SET uplfile="'.$output['uplfilename'].'" WHERE num='.$num;
-  mysqli_query($connection, $myQuery);  // adding uplfile into mysql table
+/*********  handling uploaded pic  ***********************/
+  $output = threadPic($num, $f_type);
+  if (!$output[0] || !$output[1]){              // if something went wrong
+    $myQuery = 'rm -r /var/www/html/0/threads/'.$num;
+    exec($myQuery);                             // deleting thread
+    header("Location: http://www.2ch.ge/0/");   // reloading page
+    exit();                                     // and exiting
+  }
+/*********************************************************/
 
-  newfiles($num, $output['mimeType'], $body, $output['uplfilename'], $connection, $threadCount[0]);   // Creating new index files
+$connection = thread_mysql($num, $body, $pass, $output[2]);   // adding new thread into DB
+newThread($num, $body, $output[2]);                           // creating index file for new thread
+newIndex($connection);                                        // creating new 0/index.php
 
-  mysqli_close($connection);  // Закрываем соединени
-  header("Location: http://www.2ch.ge/0/threads/$num");
+mysqli_close($connection);
+header("Location: http://www.2ch.ge/0/threads/$num");
 ?>
