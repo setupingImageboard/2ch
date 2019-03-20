@@ -1,4 +1,14 @@
-<?php 								// Starting session and initialazing captcha script
+<?php
+  if($_GET['user'] == 'admin'){			// rebuilding index page
+    echo 'Rebuilding...';
+    include('functions.php');
+    $connection = mysqli_connect('localhost', 'www', '2ch', 'threadbase');
+    newIndex($connection);
+    mysqli_close($connection);
+    header('Location: http://2ch.ge/0');
+		exit();
+  }
+// Starting session and initialazing captcha script
 session_start();
 $_SESSION = array();
 
