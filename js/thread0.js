@@ -63,6 +63,7 @@ function showImage(id, post) {
         opened.parentElement.removeChild(opened);
       }
 
+      isOpen = true;
       var imgDiv = document.createElement('DIV');   // Создаем новые элементы
       var img = document.createElement('IMG');
 
