@@ -1,0 +1,33 @@
+#errorPage{                      /* Стиль body ** Начало блока стилей страницы вывода ошибки 404 */
+  background-color: #22262a;
+  margin: 0;
+}
+
+#errorPage > div{        /* Стиль первого div */
+  margin: 50px auto;
+  width: 600px;
+  max-width: 95vw;
+  padding: 10px;
+  text-align: center;
+  color: #cdcdcd;
+  font-size: 1.8em;
+}
+
+#errorDiv{                    /* Стиль второго div */
+  width: 100%;
+  margin: 20px auto;
+  margin-bottom: 0px;
+}
+
+#errorDiv > img{                    /* Стиль изображения */
+  width: 95%;
+  border: solid 1px #3186d8;
+  margin: 0;
+}
+
+#errorDiv > div{       /* Стиль последнего div */
+  margin: 10px auto;
+  width: 600px;
+  max-width: 95vw;
+  font-size: 0.7em
+}
