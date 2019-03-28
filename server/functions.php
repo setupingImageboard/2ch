@@ -324,7 +324,7 @@ function newPost($num, $threadnum, $body, $picname){
 
 /*********** function for adding post into DB ********************/
 function post_mysql($num, $body, $threadnum, $file){
-  $connection = mysqli_connect('localhost', 'www', '2ch', 'threadbase');  // establishing connection with DB
+  $connection = mysqli_connect('', '', '', '');  // establishing connection with DB
 
   // Getting amount of posts in this thread
   $query = 'SELECT postcount FROM thread0 where num='.$threadnum;
