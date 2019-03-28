@@ -352,7 +352,7 @@ function post_mysql($num, $body, $threadnum, $file){
 
 /*********** function for adding thread into DB ******************/
 function thread_mysql($num, $body, $pass, $file){
-  $connection = mysqli_connect('localhost', 'www', '2ch', 'threadbase');  // establishing connection with DB
+  $connection = mysqli_connect('', '', '', '');  // establishing connection with DB
 
   // Getting amount of threads already created
   $threadCount = mysqli_query($connection, 'SELECT COUNT(*) FROM thread0');
